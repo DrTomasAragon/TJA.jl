@@ -1,0 +1,43 @@
+"""
+    calculate_rank_weights(n::Int64)
+
+Returns `n` criteria weights in ranked order.
+
+# Constructors
+
+```julia
+calculate_rank_weights(n::Int64)
+```
+
+# Arguments
+
+- `n` : number of criteria
+
+# Notes
+
+- Danielson M, Ekenberg L. Trade-offs for ordinal ranking methods in
+  multi-criteria decisions. In: Bajwa D, Koeszegi ST, Vetschera R,
+  editors. Group decision and negotiation Theory, empirical evidence,
+  and application [Internet]. Cham: Springer International Publishing;
+  2017. p. 16–27. Available from:
+  https://doi.org/10.1007/978-3-319-52624-9_2
+
+# Examples
+
+```jldoctest
+julia> calculate_rank_weights(4)
+4-element Vector{Float64}:
+ 0.4363636363636364
+ 0.27272727272727276
+ 0.18181818181818182
+ 0.1090909090909091
+```
+"""
+function calculate_rank_weights(n::Int64)
+    num = zeros(n)
+    for i in 1:n
+        num[i] = (1/i) + ( (n + 1 - i) / n )
+    end
+    wi = num / sum(num)
+    return wi
+end
